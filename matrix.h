@@ -35,14 +35,9 @@ class rcmatrix::Matrix {
 		n = 1;
 		row = i;
 		col = j;
-		try {
-			m = new double[col];
-			for(unsigned c = 0; c < col; ++c) {
-				m[c] = new double[row];
-			}
-		}
-		catch(const std::exception& e) {
-			std::cerr << e.what() << '\n';
+		m = new double[col];
+		for(unsigned c = 0; c < col; ++c) {
+			m[c] = new double[row];
 		}
 
 
