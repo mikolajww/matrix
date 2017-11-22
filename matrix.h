@@ -1,60 +1,55 @@
 #include <iostream>
 
 
-class rcmatrix {
+using namespace std;
+class matrix {
 	private:
-		class Matrix;
-		Matrix* data;
+		class rcmatrix;
+		rcmatrix* data;
 	public:
 		class proxy;
-		rcmatrix();
-		~rcmatrix();
-		rcmatrix(const rcmatrix& a);
-		rcmatrix(FILE* file);
-		rcmatrix& operator= (const rcmatrix& a);
-		friend ostream& operator<< (const ostream& o, const rcmatrix& m);
-		friend istream& operator>> (const istream& o, const rcmatrix& m);
-		friend rcmatrix operator+ (const rcmatrix& a, const rcmatrix& b);
-		friend rcmatrix operator- (const rcmatrix& a, const rcmatrix& b);
-		friend rcmatrix operator* (const rcmatrix& a, const rcmatrix& b);
-		rcmatrix& operator+= (const rcmatrix& a);
-		rcmatrix& operator-= (const rcmatrix& a);
-		rcmatrix& operator*= (const rcmatrix& a);
-		bool operator== (const rcmatrix& a) const;
-		proxy operator() (unsigned int i, unsigned int j)
+		class indexOutOfRange {};
+		//class incompatibleSizes;
+		matrix(int row = 0, int col = 0);
+		~matrix();
+		// matrix(const matrix& a);
+		// matrix(FILE* file);
+		// matrix& operator= (const matrix& a);
+		friend ostream& operator<< (ostream& o, const matrix& m);
+		friend istream& operator>> (istream& i, matrix& m);
+		// friend matrix operator+ (const matrix& a, const matrix& b);
+		// friend matrix operator- (const matrix& a, const matrix& b);
+		// friend matrix operator* (const matrix& a, const matrix& b);
+		// matrix& operator+= (const matrix& a);
+		// matrix& operator-= (const matrix& a);
+		// matrix& operator*= (const matrix& a);
+		// bool operator== (const matrix& a) const;
+		proxy operator() (unsigned int i, unsigned int j);
 
 };
 
-class rcmatrix::Matrix {
-	double** m;
-	unsigned int row;
-	unsigned int col;
-	unsigned int count;
-
-	Matrix(unsigned int i, unsigned int j) {
-		n = 1;
-		row = i;
-		col = j;
-		m = new double[col];
-		for(unsigned c = 0; c < col; ++c) {
-			m[c] = new double[row];
-		}
-
-
-
-	}
-
-
-
-
-
-};
-
-
-
-class rcmatrix::proxy {
+class matrix::rcmatrix {
+	private:
+		double** m;
+		unsigned int count;
 	public:
-		proxy();
-		~proxy();
-	
+		unsigned int row;
+		unsigned int col;
+		rcmatrix(unsigned int i, unsigned int j);
+		~rcmatrix();
+		double read(unsigned int i, unsigned int j) const;
+		void write(unsigned int i, unsigned int j, double val);
+};
+
+class matrix::proxy {
+	private:
+		friend class matrix;
+		matrix& parent;
+		unsigned int row;
+		unsigned int col;
+	public:
+		proxy(matrix& m, int r, int c) : parent(m), row(r), col(c) {};
+		operator double () const;
+		proxy& operator= (double val);
+		proxy& operator= (const proxy& ref);
 };
