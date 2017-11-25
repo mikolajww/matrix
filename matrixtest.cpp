@@ -14,10 +14,12 @@ int main(int argc, char const *argv[]) {
 	cout << m(0,0) << endl;
 	cout << m << endl;
 	m.debugInfo();
-	{
 		matrix m1(m);
 		m.debugInfo();
-	}
+		m1.debugInfo();
+		m1(0,1) = 5;
+		m.debugInfo();
+		m1.debugInfo();
 	m.debugInfo();
 	//cin >> m;
 	return 0;

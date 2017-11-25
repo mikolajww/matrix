@@ -34,7 +34,7 @@ matrix::rcmatrix* matrix::rcmatrix::detach() {
 	if(count == 1) {
 		return this;
 	}
-	matrix::rcmatrix* t=new rcmatrix(row,col,m);
+	matrix::rcmatrix* t = new rcmatrix(row,col,m);
 	count--;
 	return t;
 }
