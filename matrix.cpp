@@ -28,7 +28,6 @@ double matrix::read(unsigned int i, unsigned int j) const {
 
 void matrix::write(unsigned int i, unsigned int j, double val) {
 	check(i,j);
-	cout<<"detach"<<endl;
 	data = data->detach();
 	data->m[i][j] = val;
 }
