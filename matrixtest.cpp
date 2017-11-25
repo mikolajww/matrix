@@ -13,6 +13,12 @@ int main(int argc, char const *argv[]) {
 	m(0,0) = 1;
 	cout << m(0,0) << endl;
 	cout << m << endl;
-	cin >> m;
+	m.debugInfo();
+	{
+		matrix m1(m);
+		m.debugInfo();
+	}
+	m.debugInfo();
+	//cin >> m;
 	return 0;
 }

@@ -10,6 +10,18 @@ matrix::rcmatrix::rcmatrix(unsigned int i, unsigned int j) {
 	}
 }
 
+matrix::rcmatrix::rcmatrix(unsigned int i, unsigned int j, double** p) {
+	count = 1;
+	row = i;
+	col = j;
+	m = new double*[col];
+	for(unsigned c = 0; c < col; ++c) {
+		m[c] = new double[row];
+		m[c] = p[c];
+	}
+
+}
+
 matrix::rcmatrix::~rcmatrix() {
 	for (unsigned c = 0; c < col; ++c) {
 		delete[] m[c];
@@ -17,21 +29,13 @@ matrix::rcmatrix::~rcmatrix() {
 	delete[] m;
 }
 
-double matrix::rcmatrix::read(unsigned int i, unsigned int j) const {
-	if(i >= 0 && i < row) {
-		if(j >=0 && j < col) {
-			return m[i][j];
-		}
+
+matrix::rcmatrix* matrix::rcmatrix::detach() {
+	if(count == 1) {
+		return this;
 	}
-	else throw indexOutOfRange();
-	return 0;
+	matrix::rcmatrix* t=new rcmatrix(row,col,m);
+	count--;
+	return t;
 }
 
-void matrix::rcmatrix::write(unsigned int i, unsigned int j, double val) {
-	if(i >= 0 && i < row) {
-		if(j >=0 && j < col) {
-			m[i][j] = val;
-		}
-	}
-	else throw indexOutOfRange();
-}

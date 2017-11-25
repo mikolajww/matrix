@@ -11,7 +11,11 @@ class matrix {
 		class indexOutOfRange {};
 		//class incompatibleSizes;
 		matrix(int row = 0, int col = 0);
+		matrix(const matrix& m);
 		~matrix();
+		double read(unsigned int i, unsigned int j) const;
+		void write(unsigned int i, unsigned int j, double val);
+		inline void check(unsigned int i, unsigned int j) const;
 		// matrix(const matrix& a);
 		// matrix(FILE* file);
 		// matrix& operator= (const matrix& a);
@@ -24,21 +28,25 @@ class matrix {
 		// matrix& operator-= (const matrix& a);
 		// matrix& operator*= (const matrix& a);
 		// bool operator== (const matrix& a) const;
-		proxy operator() (unsigned int i, unsigned int j);
+		proxy operator() (unsigned int i, unsigned int j);\
+		void debugInfo();
 
 };
 
 class matrix::rcmatrix {
 	private:
+		rcmatrix(const rcmatrix& r);
+		rcmatrix& operator=(const rcmatrix&);
+	public:
 		double** m;
 		unsigned int count;
-	public:
 		unsigned int row;
 		unsigned int col;
 		rcmatrix(unsigned int i, unsigned int j);
+		rcmatrix(unsigned int i, unsigned int j, double** p);
 		~rcmatrix();
-		double read(unsigned int i, unsigned int j) const;
-		void write(unsigned int i, unsigned int j, double val);
+		rcmatrix* detach();
+		void assign(unsigned int i, unsigned int j, double** m);
 };
 
 class matrix::proxy {
