@@ -34,14 +34,14 @@ class matrix {
 };
 
 class matrix::rcmatrix {
-	private:
-		rcmatrix(const rcmatrix& r);
-		rcmatrix& operator=(const rcmatrix&);
 	public:
 		double** m;
 		unsigned int count;
 		unsigned int row;
 		unsigned int col;
+		
+		rcmatrix(const rcmatrix& r) = delete;
+		rcmatrix& operator=(const rcmatrix&) = delete;
 		rcmatrix(unsigned int i, unsigned int j);
 		rcmatrix(unsigned int i, unsigned int j, double** p);
 		~rcmatrix();

@@ -4,9 +4,9 @@ matrix::rcmatrix::rcmatrix(unsigned int i, unsigned int j) {
 	count = 1;
 	row = i;
 	col = j;
-	m = new double*[col];
-	for(unsigned c = 0; c < col; ++c) {
-		m[c] = new double[row]();
+	m = new double*[row];
+	for(unsigned c = 0; c < row; ++c) {
+		m[c] = new double[col]();
 	}
 }
 
@@ -14,13 +14,11 @@ matrix::rcmatrix::rcmatrix(unsigned int i, unsigned int j, double** p) {
 	count = 1;
 	row = i;
 	col = j;
-	m = new double*[col];
-	for(unsigned c = 0; c < col; ++c) {
-		m[c] = new double[row];
-	}
-	for(unsigned i_ = 0; i_ < col; ++i_) {
-		for(unsigned j_ = 0; j_ < row ; ++j_) {
-			m[i_][j_] = p[i_][j_];
+	m = new double*[row];
+	for(unsigned c = 0; c < row; ++c) {
+		m[c] = new double[col];
+		for(unsigned j_ = 0; j_ < col ; ++j_) {
+			m[c][j_] = p[c][j_];
 		}
 	}
 }
@@ -35,10 +33,9 @@ matrix::rcmatrix::~rcmatrix() {
 
 matrix::rcmatrix* matrix::rcmatrix::detach() {
 	if(count == 1) {
-		cout<<"count 1"<<endl;
 		return this;
 	}
-	matrix::rcmatrix* t = new rcmatrix(row,col,m);
+	auto* t = new rcmatrix(row,col,m);
 	count--;
 	return t;
 }
