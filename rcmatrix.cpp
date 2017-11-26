@@ -24,8 +24,8 @@ matrix::rcmatrix::rcmatrix(unsigned int i, unsigned int j, double** p) {
 }
 
 matrix::rcmatrix::~rcmatrix() {
-	for (unsigned c = 0; c < col; ++c) {
-		delete[] m[c];
+	for (unsigned r = 0; r < row; ++r) {
+		delete[] m[r];
 	}
 	delete[] m;
 }

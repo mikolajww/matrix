@@ -51,11 +51,12 @@ ostream& operator<< (ostream& o, const matrix& m) {
 
 istream& operator>> (istream& i, matrix& m) {
 	double temp = 0;
-	for(unsigned c = 0; c < m.data->col; ++c) {
-		for (unsigned r = 0; r < m.data->row; ++r) {
-			cout << "Input element [" << c << "][" << r << "]" << endl;
+	cout << m.data->row << "x" << m.data->col << endl;
+	for (unsigned r = 0; r < m.data->row; r++) {
+		for(unsigned c = 0; c < m.data->col; c++) {
+			cout << "Input element [" << r << "][" << c << "]" << endl;
 			cin >> temp;
-			m.write(c,r,temp);
+			m.write(r,c,temp);
 		}
 	}
 	return i;
