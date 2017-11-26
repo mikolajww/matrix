@@ -50,44 +50,13 @@ ostream& operator<< (ostream& o, const matrix& m) {
 }
 
 istream& operator>> (istream& i, matrix& m) {
-	int rows = 0, cols = 0;
-	bool valid = false;
-	if(m.data->row == 0) {
-		while (!valid) {
-			valid = true;
-			cout << "Number of rows: ";
-			i >> rows;
-			if(i.fail() || rows <=0) {
-				i.clear(); 
-				i.ignore( 1000, '\n' );
-				cout << "\nPlease enter a integer value greater than 0." << endl;
-				valid = false;
-			}
-		}
-		m.data->row = rows;
-	}
-	valid = false;
-	if(m.data->col == 0) {
-		while (!valid) {
-			valid = true;
-			cout << "Number of columns: ";
-			i >> cols;
-			if(i.fail() || rows <=0) {
-				i.clear(); 
-				i.ignore( 1000, '\n' );
-				cout << "\nPlease enter a integer value greater than 0." << endl;
-				valid = false;
-			}
-		}
-		m.data->col = cols;
-	}
 	double temp = 0;
-	for(int c = 0; c < cols; ++c) {
-		for (int r = 0; r < rows; ++r) {
+	for(unsigned c = 0; c < m.data->col; ++c) {
+		for (unsigned r = 0; r < m.data->row; ++r) {
+			cout << "Input element [" << c << "][" << r << "]" << endl;
 			cin >> temp;
 			m.write(c,r,temp);
 		}
-
 	}
 	return i;
 }
