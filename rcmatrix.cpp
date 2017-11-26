@@ -15,10 +15,10 @@ matrix::rcmatrix::rcmatrix(unsigned int i, unsigned int j, double** p) {
 	row = i;
 	col = j;
 	m = new double*[row];
-	for(unsigned c = 0; c < row; ++c) {
-		m[c] = new double[col];
-		for(unsigned j_ = 0; j_ < col ; ++j_) {
-			m[c][j_] = p[c][j_];
+	for(unsigned r = 0; r < row; ++r) {
+		m[r] = new double[col];
+		for(unsigned c = 0; c < col ; ++c) {
+			m[r][c] = p[r][c];
 		}
 	}
 }

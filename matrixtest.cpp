@@ -2,63 +2,77 @@
 using namespace std;
 
 int main(int argc, char const *argv[]) {
-	
+	//Constructors
 	matrix m(3,4);
-	try {
-		cout << m(4,4) << endl;
-	}
-	catch (const exception& e) {
-		cout << e.what() << endl;
-	}
-	m(0,0) = 1;
-	//cout << m(0,0) << endl;
-	//cout << m << endl;
-	//m.debugInfo();
 	matrix m1(4,3);
-	//m.debugInfo();
-	//m1.debugInfo();
-	m1(0,1) = 5;
-	
-	//cin >> m1;
-	cout << m1;
-	m = m1;
-	m1(1,0) = 4;
-	//cout << m;
-	//m.debugInfo();
-	//m1.debugInfo();
-	//m.debugInfo();
+	matrix m2;
+	matrix m3(m1);
+	//Reference counting
+	cout << "Matrix m1" << endl;
+	m1.debugInfo();
+	cout << "Matrix m3 constructed from m1" << endl;
+	m3.debugInfo();
+	//Proxy class
+	cout << "Matrix m at [0,0] = " << m(0,0) << endl;
+	m(0,0) = 1;
+	cout << "Matrix m at [0,0] = " << m(0,0) << endl;
+	//Stream operators
+	cout << "Matrix m" << endl;
+	cout << m;
+	cout << "Input matrix m1" << endl;
+	cin >> m1;
+	//Exceptions
+	//Invalid index
 	try {
-		cout << (m1 == m) << endl;
+		cout << m(5,5);
+	}
+	catch(const exception& e) {
+		cerr << e.what() << '\n';
+	}
+	//Incompatible sizes
+	try {
+		cout << m1 + m2;
+	}
+	catch(const std::exception& e) {
+		std::cerr << e.what() << '\n';
+	}
+	//Comparison
+	try {
+		(m3 == m1)?(cout << "m3 == m"<< endl):(cout << "m3 != m" << endl); 
+		(m == m1)?(cout << "m == m1"<< endl):(cout << "m != m1" << endl); 
+	}
+	catch(const std::exception& e) {
+		cerr << e.what() << '\n';
+	}
+	//Addition
+	try {
+		cout << "Addition" << endl;
+		cout << m1 << endl;
+		cout << m3 << endl;
+		cout << "Result" << endl;
+		cout << (m1 + m3) << endl;
 	}
 	catch(const std::exception& e) {
 		cerr << e.what() << '\n';
 	}
 
 	try {
-		cout << "ADD" << endl;
+		cout << "Subtraction" << endl;
 		cout << m1 << endl;
-		cout << m << endl;
-		cout << (m1 + m) << endl;
+		cout << m3 << endl;
+		cout << "Result" << endl;
+		cout << (m1 - m3) << endl;
 	}
 	catch(const std::exception& e) {
 		cerr << e.what() << '\n';
 	}
 
 	try {
-		cout << "SUBTRACT" << endl;
+		cout << "Addition +=" << endl;
 		cout << m1 << endl;
-		cout << m << endl;
-		cout << (m1 - m) << endl;
-	}
-	catch(const std::exception& e) {
-		cerr << e.what() << '\n';
-	}
-
-	try {
-		cout << "ADD +=" << endl;
-		cout << m1 << endl;
-		cout << m << endl;
-		m1 +=m;
+		cout << m3 << endl;
+		m1 +=m3;
+		cout << "Result" << endl;
 		cout << m1 << endl;
 	}
 	catch(const std::exception& e) {
@@ -67,8 +81,9 @@ int main(int argc, char const *argv[]) {
 	try {
 		cout << "SUBTRACT -=" << endl;
 		cout << m1 << endl;
-		cout << m << endl;
-		m1 -=m;
+		cout << m3 << endl;
+		m1 -=m3;
+		cout << "Result" << endl;
 		cout << m1 << endl;
 	}
 	catch(const std::exception& e) {
@@ -76,9 +91,10 @@ int main(int argc, char const *argv[]) {
 	}
 
 	try {
-		cout << "MULTIPLY " << endl;
+		cout << "Multiplication " << endl;
 		cout << m1 << endl;
 		cout << m << endl;
+		cout << "Result" << endl;
 		cout << (m1 * m) << endl;
 	}
 	catch(const std::exception& e) {
@@ -86,10 +102,11 @@ int main(int argc, char const *argv[]) {
 	}
 
 	try {
-		cout << "MULTIPLY " << endl;
+		cout << "Multiplication *=" << endl;
 		cout << m1 << endl;
 		cout << m << endl;
 		m1 *= m;
+		cout << "Result" << endl;
 		cout << m1 << endl;
 	}
 	catch(const std::exception& e) {
