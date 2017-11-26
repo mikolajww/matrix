@@ -15,6 +15,7 @@ matrix::matrix(const matrix& m) {
 	m.data->count++;
 	data = m.data;
 }
+
 void matrix::debugInfo() {
 	cerr << "Original matrix at [ " << data->m << " ]" << endl;
 	cerr << "Size : " << data->row << " x " << data->col << endl;
@@ -34,7 +35,7 @@ void matrix::write(unsigned int i, unsigned int j, double val) {
 
 inline void matrix::check(unsigned int i, unsigned int j) const {
 	if ( (i < 0 || i > data->row) || (j < 0 || j > data->col) ) {
-		throw indexOutOfRange();
+		throw indexOutOfRange(i,j);
 	}
 }
 
@@ -48,6 +49,7 @@ ostream& operator<< (ostream& o, const matrix& m) {
 	o << endl;
 	return o;
 }
+
 
 istream& operator>> (istream& i, matrix& m) {
 	double temp = 0;
@@ -64,4 +66,21 @@ istream& operator>> (istream& i, matrix& m) {
 
 matrix::proxy matrix::operator() (unsigned int i, unsigned int j) {
 	return proxy(*this,i,j);
+}
+
+matrix& matrix::operator= (matrix& a) {
+	a.data->count++;
+	if(--data->count == 0) {
+		delete data;
+	}
+	data = a.data;
+	return *this;
+}
+
+bool operator== (const matrix& a) const {
+	if(data->row != a.data->row || data->col != a.data->col) {
+		throw incompatibleSizes(data->row, data->col, a.data->row, a.data->col);
+	}
+
+
 }
