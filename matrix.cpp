@@ -1,6 +1,5 @@
 #include "matrix.h"
 #include <string>
-#include <vector>
 using namespace std;
 
 matrix::matrix(int row, int col) {
@@ -95,7 +94,7 @@ bool matrix::operator== (const matrix& a) const {
 }
 
 matrix operator+ (const matrix& a, const matrix& b) {
-	checkSize(a,b);
+	matrix::checkSize(a,b);
 	matrix t(a);
 	t += b;
 	return t;
@@ -103,30 +102,53 @@ matrix operator+ (const matrix& a, const matrix& b) {
 
 matrix operator- (const matrix& a, const matrix& b) {
 	matrix::checkSize(a,b);
-	matrix t(a.data->row, a.data->col);
-	for (unsigned r = 0; r < a.data->row; ++r)	{
-		for (unsigned c = 0; c < a.data->col; ++c)	{
-			t.write(r,c,(a.data->m[r][c] - b.data->m[r][c]));
-		}
-	}
+	matrix t(a);
+	t -= b;
 	return t;
 }
 
-/*
 matrix operator* (const matrix& a, const matrix& b) {
-	if (a.data->columns != b.data->rows) {
-        throw incompatibleSizes(a.data->rows, a.data->columns, b.data->rows, b.data->columns);
+	if (a.data->col != b.data->row) {
+		throw matrix::incompatibleSizes(a.data->row, a.data->col, b.data->row, b.data->col);
 	}
-	matrix t(a.data->col, b.data->row);
+	matrix t(a);
+	t *= b;
+	return t;
+}
 
-
-}*/
+matrix& matrix::operator*= (const matrix& a) {
+	if (data->col != a.data->row) {
+		throw incompatibleSizes(data->row, data->col, a.data->row, a.data->col);
+	}
+	matrix product(data->col, a.data->row);
+	for (unsigned i = 0; i < data->row; ++i) {
+        for (unsigned j = 0; j < a.data->col; ++j) {
+            double cellSum = 0;
+            for (unsigned k = 0; k < data->col; ++k) {
+                cellSum += data->m[i][k] * a.data->m[k][j];
+            }
+            product.data->m[i][j] = cellSum;
+        }
+    }
+    *this = product;
+    return *this;
+}
 
 matrix& matrix::operator+= (const matrix& a) {
-	matrix::checkSize(a,*this);
+	checkSize(a,*this);
 	for (unsigned r = 0; r < a.data->row; ++r)	{
 		for (unsigned c = 0; c < a.data->col; ++c)	{
 			write(r,c,(a.data->m[r][c] + data->m[r][c]));
+		}
+	}
+	return *this;
+}
+
+matrix& matrix::operator-= (const matrix& a) {
+	checkSize(a,*this);
+	for (unsigned r = 0; r < a.data->row; ++r)	{
+		for (unsigned c = 0; c < a.data->col; ++c)	{
+			write(r,c,(data->m[r][c] - a.data->m[r][c]));
 		}
 	}
 	return *this;

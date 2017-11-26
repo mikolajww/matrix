@@ -24,10 +24,10 @@ class matrix {
 		friend matrix operator- (const matrix& a, const matrix& b);
 		friend matrix operator* (const matrix& a, const matrix& b);
 		matrix& operator+= (const matrix& a);
-		// matrix& operator-= (const matrix& a);
-		// matrix& operator*= (const matrix& a);
+		matrix& operator-= (const matrix& a);
+		matrix& operator*= (const matrix& a);
 		bool operator== (const matrix& a) const;
-		proxy operator() (unsigned int i, unsigned int j);\
+		proxy operator() (unsigned int i, unsigned int j);
 		void debugInfo();
 
 };

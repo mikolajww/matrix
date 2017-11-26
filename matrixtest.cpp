@@ -64,7 +64,37 @@ int main(int argc, char const *argv[]) {
 	catch(const std::exception& e) {
 		cerr << e.what() << '\n';
 	}
+	try {
+		cout << "SUBTRACT -=" << endl;
+		cout << m1 << endl;
+		cout << m << endl;
+		m1 -=m;
+		cout << m1 << endl;
+	}
+	catch(const std::exception& e) {
+		cerr << e.what() << '\n';
+	}
 
+	try {
+		cout << "MULTIPLY " << endl;
+		cout << m1 << endl;
+		cout << m << endl;
+		cout << (m1 * m) << endl;
+	}
+	catch(const std::exception& e) {
+		cerr << e.what() << '\n';
+	}
+
+	try {
+		cout << "MULTIPLY " << endl;
+		cout << m1 << endl;
+		cout << m << endl;
+		m1 *= m;
+		cout << m1 << endl;
+	}
+	catch(const std::exception& e) {
+		cerr << e.what() << '\n';
+	}
 
 	
 	return 0;
