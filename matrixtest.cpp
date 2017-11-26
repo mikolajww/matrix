@@ -19,9 +19,11 @@ int main(int argc, char const *argv[]) {
 	m1.debugInfo();
 	m1(0,1) = 5;
 	m1(1,0) = 4;
+	cin >> m1;
 	cout << m1;
-	cout << m;
 	matrix m2;
+	cin >> m2;
+	cout << m2;
 	m.debugInfo();
 	m1.debugInfo();
 	m.debugInfo();

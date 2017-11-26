@@ -52,33 +52,43 @@ ostream& operator<< (ostream& o, const matrix& m) {
 istream& operator>> (istream& i, matrix& m) {
 	int rows = 0, cols = 0;
 	bool valid = false;
-	while (!valid){
-		valid = true;
-		cout << "Number of rows: ";
-		i >> rows;
-		if(i.fail() || rows <=0) {
-			i.clear(); 
-			i.ignore( 1000, '\n' );
-			cout << "\nPlease enter a integer value greater than 0." << endl;
-			valid = false;
+	if(m.data->row == 0) {
+		while (!valid) {
+			valid = true;
+			cout << "Number of rows: ";
+			i >> rows;
+			if(i.fail() || rows <=0) {
+				i.clear(); 
+				i.ignore( 1000, '\n' );
+				cout << "\nPlease enter a integer value greater than 0." << endl;
+				valid = false;
+			}
 		}
+		m.data->row = rows;
 	}
 	valid = false;
-	while (!valid){
-		valid = true;
-		cout << "Number of columns: ";
-		i >> cols;
-		if(i.fail() || rows <=0) {
-			i.clear(); 
-			i.ignore( 1000, '\n' );
-			cout << "\nPlease enter a integer value greater than 0." << endl;
-			valid = false;
+	if(m.data->col == 0) {
+		while (!valid) {
+			valid = true;
+			cout << "Number of columns: ";
+			i >> cols;
+			if(i.fail() || rows <=0) {
+				i.clear(); 
+				i.ignore( 1000, '\n' );
+				cout << "\nPlease enter a integer value greater than 0." << endl;
+				valid = false;
+			}
 		}
+		m.data->col = cols;
 	}
-	for(int r = 0; r < rows; ++r) {
+	double temp = 0;
+	for(int c = 0; c < cols; ++c) {
+		for (int r = 0; r < rows; ++r) {
+			cin >> temp;
+			m.write(c,r,temp);
+		}
 
 	}
-
 	return i;
 }
 
