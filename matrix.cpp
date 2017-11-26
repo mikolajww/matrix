@@ -121,8 +121,8 @@ matrix& matrix::operator*= (const matrix& a) {
 		throw incompatibleSizes(data->row, data->col, a.data->row, a.data->col);
 	}
 	matrix product(data->col, a.data->row);
-	for (unsigned i = 0; i < data->row; ++i) {
-        for (unsigned j = 0; j < a.data->col; ++j) {
+	for (unsigned i = 0; i < a.data->row; ++i) {
+        for (unsigned j = 0; j < data->col; ++j) {
             double cellSum = 0;
             for (unsigned k = 0; k < data->col; ++k) {
                 cellSum += data->m[i][k] * a.data->m[k][j];
