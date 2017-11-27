@@ -7,11 +7,11 @@ int main(int argc, char const *argv[]) {
 	matrix m(3,4);
 	matrix m1(4,3);
 	matrix m2;
-	matrix m3(m1);
 	//Reference counting
 	cout << "Matrix m1" << endl;
 	m1.debugInfo();
 	cout << "Matrix m3 constructed from m1" << endl;
+	matrix m3(m1);
 	m3.debugInfo();
 	//Proxy class
 	cout << "Matrix m at [0,0] = " << m(0,0) << endl;
