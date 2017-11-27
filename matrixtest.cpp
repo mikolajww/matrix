@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include <fstream>
 using namespace std;
 
 int main(int argc, char const *argv[]) {
@@ -21,6 +22,10 @@ int main(int argc, char const *argv[]) {
 	cout << m;
 	cout << "Input matrix m1" << endl;
 	cin >> m1;
+	fstream f("matrix.txt");
+	f >> m3;
+	cout << m;
+	f.close();
 	//Exceptions
 	//Invalid index
 	try {

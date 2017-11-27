@@ -57,13 +57,18 @@ ostream& operator<< (ostream& o, const matrix& m) {
 
 istream& operator>> (istream& i, matrix& m) {
 	double temp = 0;
-	cout << m.data->row << "x" << m.data->col << endl;
+	//cout << m.data->row << "x" << m.data->col << endl;
 	for (unsigned r = 0; r < m.data->row; r++) {
 		for(unsigned c = 0; c < m.data->col; c++) {
-			cout << "Input element [" << r << "][" << c << "]" << endl;
-			cin >> temp;
+			if (i.rdbuf() == cin.rdbuf()) {
+				cout << "Input element [" << r << "][" << c << "]" << endl;
+			}
+			i >> temp;
 			m.write(r,c,temp);
 		}
+	}
+	if (i.rdbuf() != cin.rdbuf()) {
+		cout << "Loaded matrix from file" << endl;
 	}
 	return i;
 }
