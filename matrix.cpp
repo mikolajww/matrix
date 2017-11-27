@@ -141,9 +141,10 @@ matrix& matrix::operator*= (const matrix& a) {
 
 matrix& matrix::operator+= (const matrix& a) {
 	checkSize(a,*this);
+	data = data->detach();
 	for (unsigned r = 0; r < a.data->row; ++r)	{
 		for (unsigned c = 0; c < a.data->col; ++c)	{
-			write(r,c,(a.data->m[r][c] + data->m[r][c]));
+			data->m[r][c] = (a.data->m[r][c] + data->m[r][c]);
 		}
 	}
 	return *this;
@@ -151,9 +152,10 @@ matrix& matrix::operator+= (const matrix& a) {
 
 matrix& matrix::operator-= (const matrix& a) {
 	checkSize(a,*this);
+	data = data->detach();
 	for (unsigned r = 0; r < a.data->row; ++r)	{
 		for (unsigned c = 0; c < a.data->col; ++c)	{
-			write(r,c,(data->m[r][c] - a.data->m[r][c]));
+			data->m[r][c] = (data->m[r][c] - a.data->m[r][c]);
 		}
 	}
 	return *this;

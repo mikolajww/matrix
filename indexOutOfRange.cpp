@@ -1,13 +1,11 @@
 #include "matrix.h"
 
-matrix::indexOutOfRange::indexOutOfRange(unsigned r, unsigned c) : runtime_error(""), rows(r), cols(c) {
+string matrix::indexOutOfRange::prepareMessage(unsigned r, unsigned c){
+	std::string s;
 	s.append("Index out of range : (");
-	s.append(std::to_string(rows));
+	s.append(std::to_string(r));
 	s.append(",");
-	s.append(std::to_string(cols));
+	s.append(std::to_string(c));
 	s.append(")");
-}
-
-const char* matrix::indexOutOfRange::what() const noexcept {
-	return (s.c_str());
+	return s;
 }

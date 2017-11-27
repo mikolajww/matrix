@@ -7,6 +7,10 @@ class matrix {
 	private:
 		class rcmatrix;
 		rcmatrix* data;
+		double read(unsigned int i, unsigned int j) const;
+		void write(unsigned int i, unsigned int j, double val);
+		inline void checkRange(unsigned int i, unsigned int j) const;
+		inline static void checkSize(const matrix& a, const matrix& b);
 	public:
 		class proxy;
 		class indexOutOfRange;
@@ -14,10 +18,6 @@ class matrix {
 		matrix(int row = 0, int col = 0);
 		matrix(const matrix& m);
 		~matrix();
-		double read(unsigned int i, unsigned int j) const;
-		void write(unsigned int i, unsigned int j, double val);
-		inline void checkRange(unsigned int i, unsigned int j) const;
-		inline static void checkSize(const matrix& a, const matrix& b);
 		matrix& operator= (matrix& a);
 		friend ostream& operator<< (ostream& o, const matrix& m);
 		friend istream& operator>> (istream& i, matrix& m);
@@ -63,23 +63,17 @@ class matrix::proxy {
 };
 
 class matrix::incompatibleSizes : public runtime_error {
-	private:
-		unsigned aRows;
-		unsigned aCols;
-		unsigned bRows;
-		unsigned bCols;
-		string s;
 	public:
-		incompatibleSizes(unsigned aR, unsigned aC, unsigned bR, unsigned bC);
-		virtual const char* what() const noexcept override;
+		incompatibleSizes(unsigned aR, unsigned aC, unsigned bR, unsigned bC) : runtime_error(prepareMessage(aR, aC, bR, bC)) {};
+
+	private:
+		static string prepareMessage(unsigned aR, unsigned aC, unsigned bR, unsigned bC);
 };	
 
 class matrix::indexOutOfRange : public runtime_error {
-	private:
-		unsigned rows;
-		unsigned cols;
-		string s;
 	public:
-		indexOutOfRange(unsigned r, unsigned c);
-		virtual const char* what() const noexcept override;
+		indexOutOfRange(unsigned r, unsigned c) : runtime_error(prepareMessage(r,c)) {};
+
+	private:
+		static string prepareMessage(unsigned r, unsigned c);
 };		
